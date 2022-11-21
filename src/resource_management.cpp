@@ -29,6 +29,7 @@ void heartbeat() {
 
 std::vector<double> init(int n) {
   std::thread t_{heartbeat};
+  // NOTE: move because copy is not allowed
   ScopedThread t{std::move(t_)};
 
   std::vector<double> vec(n);
@@ -36,7 +37,8 @@ std::vector<double> init(int n) {
     vec[i] = 777;
   }
 
+  // NOTE: move because copy is unwanted for large vectors
   return vec;
 }
 
-int main() { auto v = init(10); }
+int main() { auto v = init(1'000'000); }
