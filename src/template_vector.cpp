@@ -30,7 +30,7 @@ Vector<T>::Vector(int n) {
 template <typename T>
 T &Vector<T>::operator[](int i) {
   if ((i < 0) || (i >= size())) {
-    throw std::out_of_range("Vector::operator[]");
+    throw std::out_of_range{"Vector::operator[]"};
   }
 
   return elem[i];
