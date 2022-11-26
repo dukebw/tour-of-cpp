@@ -1,3 +1,5 @@
+#include <algorithm>
+#include <iostream>
 #include <stdexcept>
 
 template <typename T>
@@ -13,7 +15,6 @@ public:
   // copy and move operations...
 
   T &operator[](int i);
-
   int size() { return sz; }
 };
 
@@ -36,7 +37,30 @@ T &Vector<T>::operator[](int i) {
   return elem[i];
 }
 
+template <typename T>
+T *begin(Vector<T> &v) {
+  if (v.size() == 0) {
+    return nullptr;
+  }
+
+  return &v[0];
+}
+
+template <typename T>
+T *end(Vector<T> &v) {
+  if (v.size() == 0) {
+    return nullptr;
+  }
+
+  return begin(v) + v.size();
+}
+
 int main() {
   Vector<char> vc(200);
+  std::fill(begin(vc), end(vc), 'a');
+  for (auto c : vc) {
+    std::cout << c << std::endl;
+  }
+
   Vector<double> v(1);
 }
